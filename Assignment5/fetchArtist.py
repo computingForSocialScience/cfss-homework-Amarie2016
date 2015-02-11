@@ -27,4 +27,4 @@ def fetchArtistInfo(artist_id):
     return artist
 
 
-fetchArtistInfo(fetchArtistId("Passion Pit"))
+print(fetchArtistInfo(fetchArtistId("Passion Pit")))

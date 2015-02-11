@@ -1,15 +1,41 @@
-import requests
+from requests import *
 from datetime import datetime
 
 def fetchAlbumIds(artist_id):
     """Using the Spotify API, take an artist ID and 
     returns a list of album IDs in a list
     """
-    pass
+    albumLink = "https://api.spotify.com/v1/artists/%s/albums?market=US&album_type=album,compilation" % artist_id
+    albumPage = get(albumLink).json()
+    albumInfo = albumPage["items"]
+    
+    albumNames = []
+    albumIDs = []
+    for i in range(len(albumInfo)):
+    	albumNames.append(albumInfo[i]["name"])
+    	albumIDs.append(albumInfo[i]["id"])
+
+    #print albumNames
+    return albumIDs
+
 
 def fetchAlbumInfo(album_id):
     """Using the Spotify API, take an album ID 
     and return a dictionary with keys 'artist_id', 'album_id' 'name', 'year', popularity'
     """
-    pass
+    albumLink = "https://api.spotify.com/v1/albums/%s" %album_id
+    album = get(albumLink).json()
 
+    albumInfo = {}
+    albumInfo['artist_id'] = album["artists"][0]["id"]
+    albumInfo["album_id"] = album["id"]
+    albumInfo["name"] = album["name"]
+    albumInfo["year"] = album["release_date"][0:4]
+    albumInfo["popularity"] = album['popularity']
+
+    return albumInfo
+
+    
+
+
+print(fetchAlbumInfo(fetchAlbumIds("7gjAu1qr5C2grXeQFFOGeh")[0]))
