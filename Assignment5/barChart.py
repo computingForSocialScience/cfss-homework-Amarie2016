@@ -41,6 +41,7 @@ def getBarChartData():
         if not album_row:
             continue
         #if the row is not empty then it assigns each element of the row to a variable
+        print album_row
         artist_id, album_id, album_name, year, popularity = album_row
         #iterates through each element in the decades list
         for decade in decades:

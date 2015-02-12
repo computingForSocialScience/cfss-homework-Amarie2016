@@ -3,6 +3,7 @@ from fetchArtist import fetchArtistId, fetchArtistInfo
 from fetchAlbums import fetchAlbumIds, fetchAlbumInfo
 from csvUtils import writeArtistsTable, writeAlbumsTable
 from barChart import plotBarChart
+from io import open
 
 if __name__ == '__main__':
     artist_names = sys.argv[1:]

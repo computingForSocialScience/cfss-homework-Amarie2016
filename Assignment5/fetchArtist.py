@@ -27,7 +27,10 @@ def fetchArtistInfo(artist_id):
     artist['followers'] = artist['followers']['total']
     return artist
 
+
 if __name__ == '__main__':
-    print fetchArtistId('YACHT')
-
-
+    good = fetchArtistInfo(fetchArtistId("coldplay"))
+    print good['name']
+    stupid =  fetchArtistInfo('16s0YTFcyjP4kgFwt7ktrY')
+    print stupid
+    print stupid['name'].encode('utf-8')

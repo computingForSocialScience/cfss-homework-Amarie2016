@@ -6,7 +6,7 @@ def fetchAlbumIds(artist_id):
     """Using the Spotify API, take an artist ID and 
     returns a list of album IDs in a list
     """
-    albumLink = "https://api.spotify.com/v1/artists/%s/albums?market=US&album_type=album,compilation" % artist_id
+    albumLink = "https://api.spotify.com/v1/artists/%s/albums?market=US&album_type=album" % artist_id
     albumPage = get(albumLink).json()
     albumInfo = albumPage["items"]
     
@@ -38,6 +38,7 @@ def fetchAlbumInfo(album_id):
 
     
 if __name__ == '__main__':
-	artId = fetchArtistId('coldplay')
-	print(fetchAlbumIds(artId))
-	print(fetchAlbumInfo(fetchAlbumIds(artId)[0]))
+	#artId = fetchArtistId('coldplay')
+	print(fetchAlbumIds('16s0YTFcyjP4kgFwt7ktrY'))
+	print(len(fetchAlbumIds('16s0YTFcyjP4kgFwt7ktrY')))
+	#print(fetchAlbumInfo(fetchAlbumIds(artId)[0]))
