@@ -1,5 +1,6 @@
 from requests import *
 from datetime import datetime
+from fetchArtist import fetchArtistId
 
 def fetchAlbumIds(artist_id):
     """Using the Spotify API, take an artist ID and 
@@ -36,6 +37,7 @@ def fetchAlbumInfo(album_id):
     return albumInfo
 
     
-
-
-print(fetchAlbumInfo(fetchAlbumIds("7gjAu1qr5C2grXeQFFOGeh")[0]))
+if __name__ == '__main__':
+	print(fetchAlbumInfo(fetchAlbumIds("7gjAu1qr5C2grXeQFFOGeh")[0]))
+	artId = fetchArtistId('passion pit')
+	print(fetchAlbumInfo(fetchAlbumIds(artId)[0]))

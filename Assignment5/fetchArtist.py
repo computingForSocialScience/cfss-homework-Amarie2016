@@ -24,7 +24,10 @@ def fetchArtistInfo(artist_id):
     """
     searchLink = "https://api.spotify.com/v1/artists/%s" %artist_id
     artist = requests.get(searchLink).json()
+    artist['followers'] = artist['followers']['total']
     return artist
 
+if __name__ == '__main__':
+    print fetchArtistId('YACHT')
 
-print(fetchArtistInfo(fetchArtistId("Passion Pit")))
+
