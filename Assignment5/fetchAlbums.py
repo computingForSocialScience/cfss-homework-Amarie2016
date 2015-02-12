@@ -38,6 +38,6 @@ def fetchAlbumInfo(album_id):
 
     
 if __name__ == '__main__':
-	print(fetchAlbumInfo(fetchAlbumIds("7gjAu1qr5C2grXeQFFOGeh")[0]))
-	artId = fetchArtistId('passion pit')
+	artId = fetchArtistId('coldplay')
+	print(fetchAlbumIds(artId))
 	print(fetchAlbumInfo(fetchAlbumIds(artId)[0]))
