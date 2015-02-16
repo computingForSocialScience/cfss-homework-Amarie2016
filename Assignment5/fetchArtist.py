@@ -29,8 +29,5 @@ def fetchArtistInfo(artist_id):
 
 
 if __name__ == '__main__':
-    good = fetchArtistInfo(fetchArtistId("coldplay"))
-    print good['name']
-    stupid =  fetchArtistInfo('16s0YTFcyjP4kgFwt7ktrY')
-    print stupid
-    print stupid['name'].encode('utf-8')
+    good = fetchArtistId("coldplay")
+    print good
