@@ -57,6 +57,7 @@ def getDepthEdges(artistID, depth):
 def getEdgeList(artistID, depth):
 	art_family = getDepthEdges(artistID, depth)
 	family_table = pd.DataFrame(art_family)
+	print family_table[:10]
 	return family_table
 
 def writeEdgeList(artistID, depth, filename):
