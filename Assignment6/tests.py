@@ -109,6 +109,7 @@ def testMakePlaylist():
 
     # check the number of rows
     # (We are assuming the CSV has one header row and 30 data rows)
+    print len(rows)
     assert len(rows) == 30
     # check the number of columns
     # (the column count can get messed up if you don't
