@@ -50,14 +50,13 @@ def getDepthEdges(artistID, depth):
 		#set the search for the next depth level as the list of artists from this level
 		search = next_gen
 		deep = deep + 1
-
 	#print extended_family
 	return extended_family
 
 def getEdgeList(artistID, depth):
 	art_family = getDepthEdges(artistID, depth)
 	family_table = pd.DataFrame(art_family)
-	print family_table[:10]
+	#print family_table[:10]
 	return family_table
 
 def writeEdgeList(artistID, depth, filename):
