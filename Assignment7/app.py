@@ -44,7 +44,7 @@ def make_playlist_resp(listId):
     #c.execute(getList, (listId))
     c.execute("SELECT * FROM songs WHERE playlistId=1")
     songs = c.fetchall()
-    print songs
+    #print songs
     return render_template('playlist.html',songs=songs)
 
 
