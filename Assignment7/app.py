@@ -93,6 +93,10 @@ def createNewPlaylist(artist):
         c.execute(row)
         songOrder = songOrder + 1
 
+    c.execute("SELECT * FROM playlists")
+    playlists = c.fetchall()
+    print "playlists type", type(playlists)
+    print "playlists 1", type(playlists[0]), playlists[0]
     c.execute("SELECT * FROM songs WHERE playlistId=1")
     songs = c.fetchall()
     print "songs type", type(songs)
