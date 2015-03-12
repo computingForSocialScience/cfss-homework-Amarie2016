@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>playlists</title>title>
+	<title>playlists</title>
 </head>
 <body>
 	<h2>CFSS Assignment #7 Playlists</h2>
@@ -10,13 +10,14 @@
 			<th>rootArtist</th>
 		</tr>
 
-		{% for id, rootArtist in playlists %}
-
+		<ul id = "navigation">
+		{% for id, rootArtist in playlists%}
 		<tr>
-			<td>{{ id}}</td>
+			<td>
+				<li><a href="/playlist/{playlistId}">{{ id}}</a>
+			</td>
 			<td>{{ rootArtist}} </td>
 		</tr>
-
 		{% endfor %}
 
 	</table>
