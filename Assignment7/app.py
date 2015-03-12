@@ -12,11 +12,48 @@ host="localhost"
 user="root"
 passwd="raingirl13"
 db=pymysql.connect(db=dbname, host=host, user=user,passwd=passwd, charset='utf8')
-c = db.cursor()
+
 
 app = Flask(__name__)
 
+
+@app.route('/')
+def make_index_resp():
+    # this function just renders templates/index.html when
+    # someone goes to http://127.0.0.1:5000/
+    return(render_template('index.html'))
+
+
+@app.route('/playlists/')
+def make_playlists_resp():
+    c = db.cursor()
+    c.execute("SELECT * FROM playlists")
+    playlists = c.fetchall()
+    return render_template('playlists.html',playlists=playlists)
+
+
+@app.route('/playlist/<playlistId>')
+def make_playlist_resp(playlistId):
+    c = db.cursor()
+    c.execute("SELECT playlistId, songOrder, artistName, albumName, trackName FROM songs WHERE playlistId='playlistId' ORDER BY songOrder")
+    songs = c.fetchall()
+    print songs
+    return render_template('playlist.html',songs=songs)
+
+
+@app.route('/addPlaylist/',methods=['GET','POST'])
+def add_playlist():
+    if request.method == 'GET':
+        # This code executes when someone visits the page.
+        return(render_template('addPlaylist.html'))
+    elif request.method == 'POST':
+        # this code executes when someone fills out the form
+        artistName = request.form['artistName']
+        # YOUR CODE HERE
+        return(redirect("/playlists/"))
+
 def createNewPlaylist(artist):
+    c = db.cursor()
     makePlaylists = "CREATE TABLE IF NOT EXISTS playlists (ID INT PRIMARY KEY AUTO_INCREMENT, rootArtist VARCHAR(300)) ENGINE=MyISAM DEFAULT CHARSET=utf8"
     makeSongs = "CREATE TABLE IF NOT EXISTS songs (playlistId INT, songOrder INT, artistName VARCHAR(300), albumName VARCHAR(300), trackName VARCHAR(300)) ENGINE=MyISAM DEFAULT CHARSET=utf8"
     c.execute(makePlaylists)
@@ -56,47 +93,19 @@ def createNewPlaylist(artist):
         c.execute(row)
         songOrder = songOrder + 1
 
+    c.execute("SELECT * FROM songs WHERE playlistId=1")
+    songs = c.fetchall()
+    print "songs type", type(songs)
+    print "songs 1", type (songs[0]), songs[0]
     db.commit()
     c.close()
-    db.close()
-
-@app.route('/')
-def make_index_resp():
-    # this function just renders templates/index.html when
-    # someone goes to http://127.0.0.1:5000/
-    return(render_template('index.html'))
-
-
-@app.route('/playlists/')
-def make_playlists_resp():
-    c.execute("SELECT * FROM playlists")
-    playlists = c.fetchall()
-    return render_template('playlists.html',playlists=playlists)
-
-
-@app.route('/playlist/<playlistId>')
-def make_playlist_resp(playlistId):
-    c.execute("SELECT * FROM songs")
-    playlist = c.fetchall()
-    return render_template('playlist.html',songs=songs)
-
-
-@app.route('/addPlaylist/',methods=['GET','POST'])
-def add_playlist():
-    if request.method == 'GET':
-        # This code executes when someone visits the page.
-        return(render_template('addPlaylist.html'))
-    elif request.method == 'POST':
-        # this code executes when someone fills out the form
-        artistName = request.form['artistName']
-        # YOUR CODE HERE
-        return(redirect("/playlists/"))
-
-
+    #db.close()
 
 
 if __name__ == '__main__':
-    #createNewPlaylist("Coldplay")
-    #createNewPlaylist("Arcade Fire")
+    createNewPlaylist("Coldplay")
+    #createNewPlaylist("Spoon")
+    #createNewPlaylist("Metric")
+
     app.debug=True
     app.run(port=5001)
