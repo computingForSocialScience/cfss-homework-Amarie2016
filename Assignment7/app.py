@@ -1,3 +1,7 @@
+"""NOTE: I am still habing some major encoding errors because windows is actually built for a secret sadist to spy on me and laugh at my tears.
+I think this works more consistently on not-windows, but only tried on alyssa's mac once or twice.
+Thanks for being nice to me."""
+
 from flask import Flask, render_template, request, redirect, url_for
 import pymysql
 
@@ -32,10 +36,13 @@ def make_playlists_resp():
     return render_template('playlists.html',playlists=playlists)
 
 
-@app.route('/playlist/<playlistId>')
-def make_playlist_resp(playlistId):
+@app.route('/playlist/<listId>')
+def make_playlist_resp(listId):
     c = db.cursor()
-    c.execute("SELECT playlistId, songOrder, artistName, albumName, trackName FROM songs WHERE playlistId='playlistId' ORDER BY songOrder")
+    #c.execute("SELECT playlistId, songOrder, artistName, albumName, trackName FROM songs WHERE playlistId='playlistId' ORDER BY songOrder")
+    #getList = "SELECT * FROM songs WHERE playlistId=%s ORDER BY songOrder"
+    #c.execute(getList, (listId))
+    c.execute("SELECT * FROM songs WHERE playlistId=1")
     songs = c.fetchall()
     print songs
     return render_template('playlist.html',songs=songs)
@@ -84,13 +91,12 @@ def createNewPlaylist(artist):
     playlistId = rootId
     songOrder = 1
     for song in play_list:
-        artistName = str(song[0])
-        albumName = str(song[1])
-        print albumName
-        trackName = str(song[2])
-        print trackName
-        row = 'INSERT INTO songs (playlistId, songOrder, artistName, albumName, trackName) VALUES (%d, %d, %s, %s, %s)' %(playlistId, songOrder, artistName, albumName, trackName)
-        c.execute(row)
+        artistName = song[0]
+        albumName = song[1]
+        trackName = song[2]
+        #print trackName
+        row = 'INSERT INTO songs (playlistId, songOrder, artistName, albumName, trackName) VALUES (%d, %d, %s, %s, %s)' # %(playlistId, songOrder, artistName, albumName, trackName)
+        c.execute(row,(playlistId, songOrder, artistName, albumName, trackName))
         songOrder = songOrder + 1
 
     c.execute("SELECT * FROM playlists")
@@ -107,7 +113,7 @@ def createNewPlaylist(artist):
 
 
 if __name__ == '__main__':
-    createNewPlaylist("Coldplay")
+    #createNewPlaylist("Coldplay")
     #createNewPlaylist("Spoon")
     #createNewPlaylist("Metric")
 
