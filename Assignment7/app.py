@@ -26,6 +26,8 @@ def make_index_resp():
 
 @app.route('/playlists/')
 def make_playlists_resp():
+    c.execute("SELECT * FROM playlists")
+    playlists = c.fetchall()
     return render_template('playlists.html',playlists=playlists)
 
 
@@ -91,6 +93,5 @@ def createNewPlaylist(artist):
 
 
 if __name__ == '__main__':
-    #app.debug=True
-    #app.run()
-    createNewPlaylist("Coldplay")
+    app.debug=True
+    app.run(port=5001)

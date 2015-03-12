@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title>playlists</title>title>
+</head>
+<body>
+	<h2>CFSS Assignment #7 Playlists</h2>
+	<table>
+		<tr align="left">
+			<th>id</th>
+			<th>rootArtist</th>
+		</tr>
+
+		{% for id, rootArtist in playlists %}
+
+		<tr>
+			<td>{{ id}}</td>
+			<td>{{ rootArtist}} </td>
+		</tr>
+
+		{% endfor %}
+
+	</table>
+
+</body>
+</html>
