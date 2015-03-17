@@ -52,7 +52,7 @@ def getTableInfo(tableID):
 	print colIdOrder
 	return tableInfo, colIdOrder
 
-def info_table(tableTopics):
+def intoDatabase(tableTopics = ['B19125'] ):
 	#columnInfoTable 
 	c = db.cursor()
 	columnInfoTable = "CREATE TABLE IF NOT EXISTS columnInfoTable (colID VARCHAR(500), colName VARCHAR(500), tableID VARCHAR(500), tableName VARCHAR(800), denomColId VARCHAR(500)) ENGINE=MyISAM DEFAULT CHARSET=utf8"
@@ -99,25 +99,24 @@ def getTableData(tableID):
 			
 			fips = str(fips)
 			geoID = str(data['geography'].keys()[0])
+
 			allData.append((geoID, fips, columns))
-		
+	
 	#allData is a list of tuples with lists inside- each row corresponds to a different fips number
 	# each row is a tuple: (geoId, fips, columns) where geoID, fips are strings and columns is a list of tuples
 	# columns is a list of tuples with each tuple (colId, data)		
-	return allData, colIdOrder
+	return allData
 
 	
-def data_table(tableID):
-	allData, colIdOrder = getTableData("B19019")
-	print type(colIdOrder)
+def ACSDatabase(tableID):
+	allData = getTableData("B19019")
 	#print type(geoIDs), type(fipslist), type(columnData), type(allData)
 	#print geoIDs, fipslist
 	c = db.cursor()
-	create = "CREATE TABLE IF NOT EXISTS "+str(tableID)+" (geoID VARCHAR(500), fips VARCHAR(300), "+str(colIdOrder[0])+" VARCHAR (300), "+str(colIdOrder[1])+" VARCHAR (300), "+str(colIdOrder[2])+" VARCHAR (300), "+str(colIdOrder[3])+" VARCHAR (300), "+str(colIdOrder[4])+" VARCHAR (300), "+str(colIdOrder[5])+" VARCHAR (300), "+str(colIdOrder[6])+" VARCHAR (300), "+str(colIdOrder[7])+" VARCHAR (300))"
+	create = "CREATE TABLE IF NOT EXISTS dataTable (geoID VARCHAR(500), fips VARCHAR(300), data1 VARCHAR (300), data2 VARCHAR (300), data3 VARCHAR (300), data4 VARCHAR (300), data5 VARCHAR (300), data6 VARCHAR (300), data7 VARCHAR (300), data8 VARCHAR (300))"
 	c.execute(create)
-	#print allData[0], allData[1]
 	for row in allData:
-		insert_data = "INSERT INTO B19019 (geoID, fips, "+str(colIdOrder[0])+", "+str(colIdOrder[1])+", "+str(colIdOrder[2])+", "+str(colIdOrder[3])+", "+str(colIdOrder[4])+", "+str(colIdOrder[5])+", "+str(colIdOrder[6])+", "+str(colIdOrder[7])+") VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"  
+		insert_data = "INSERT INTO dataTable (geoID, fips, data1, data2, data3, data4, data5, data6, data7, data8) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"  #%(row[0], row[1], row[2][0], row[2][1], row[2][2], row[2][3], row[2][4], row[2][5], row[2][6], row[2][7])
 		c.execute(insert_data, (row[0], row[1], row[2][0][1], row[2][1][1], row[2][2][1], row[2][3][1], row[2][4][1], row[2][5][1], row[2][6][1], row[2][7][1]))
 	db.commit()
 	c.close()
@@ -126,9 +125,8 @@ def data_table(tableID):
 
 if __name__ == '__main__':
 	#print getsexWorkHours()
-	#getTableData()
+	#getTableData("B19019")
 	#ACSDatabase("B19019")
-	info_table('B19019')
-	#data_table('B19019')
+	ACSDatabase('B19019')
 		
 	#intoDatabase()

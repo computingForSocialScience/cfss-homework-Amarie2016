@@ -5,7 +5,7 @@ import pymysql
 dbname="census"
 host="localhost"
 user="root"
-passwd="raingirl13"
+passwd=""
 db=pymysql.connect(db=dbname, host=host, user=user,passwd=passwd, charset='utf8')
 
 
@@ -128,7 +128,7 @@ if __name__ == '__main__':
 	#print getsexWorkHours()
 	#getTableData()
 	#ACSDatabase("B19019")
-	info_table('B19019')
-	#data_table('B19019')
+	data_info('B19019')
+	data_table('B19019')
 		
 	#intoDatabase()

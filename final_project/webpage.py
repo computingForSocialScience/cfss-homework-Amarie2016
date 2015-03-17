@@ -23,8 +23,16 @@ def make_index_resp():
     for i in IDs:
     	tableInfo, colIdOrder = getTableInfo(i)
     	all_cols.append(colIdOrder)
+    	print all_cols
     print all_cols
     return render_template('index.html', all_cols = all_cols)
+    """
+    c = db.cursor()
+    c.execute("SELECT tableName FROM columninfotable")
+    tables = c.fetchall() 
+    print tables
+    return render_template('index.html', all_cols = tables)"""
+
 
 @webpage.route('/compare?state=[FIPSCode]&col1=[columnId1]&col2=[columnId2]')
 def basic_comparison(FIPSCode, columnId1, columnId2):
@@ -68,5 +76,5 @@ def basic_comparison(FIPSCode, columnId1, columnId2):
 
 if __name__ == "__main__":
 	webpage.debug=True
-	webpage.run(port=5001)
+	webpage.run(port=5005)
 	

@@ -1,5 +1,5 @@
 <html>
-<head><title>Playlist app</title></head>
+<head><title>Census Data</title></head>
 <body>
 
         <h4>Navigation:</h4>
@@ -59,20 +59,27 @@
         	<option value = "56">Wyoming</option>
         	
         </select>
-
+        
 #no idea if this syntax is anywhere near right
-{% for colId in all_cols %}
-        <select>
-        	<option value = "columnId1">colId</option>
-        </select>
-{% endfor %}
 
-{% for colId in all_cols %}			
- 		<select>
-        	<option value = "columnId2">colId</option>
+        
+        <select>
+            {% for colId in all_cols %}    
+        	<option value = "columnId1">{{ colId}}</option>
+            {% endfor %}            
         </select>
-{% endfor %}
-         <li><a href="/graph/">Show me!</a></li>
+        
+
+
+
+        <select>
+            {% for colId in all_cols %}            
+        	<option value = "columnId2">{{ colId}}</option>
+            {% endfor %}
+        </select>
+        
+
+         <li><a href="/compare?state=[FIPSCode]&col1=[columnId1]&col2=[columnId2]">Show me!</a></li>
 
 </body>
 </html>
