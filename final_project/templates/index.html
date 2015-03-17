@@ -3,8 +3,10 @@
 <body>
 
         <h4>Navigation:</h4>
-
-        <select>
+        
+	<form action="http://127.0.0.1:5005/compare/" method="get">
+	
+        <select name="state">
         	<option value = "1">Alabama</option>
         	<option value = "2">Alaska</option>
         	<option value = "4">Arizona</option>
@@ -59,27 +61,21 @@
         	<option value = "56">Wyoming</option>
         	
         </select>
-        
-#no idea if this syntax is anywhere near right
 
-        
-        <select>
-            {% for colId in all_cols %}    
-        	<option value = "columnId1">{{ colId}}</option>
+        <select name="col1">
+            {% for colId, colName in all_cols %}    
+        	<option value = "{{colId}}">{{ colName}}</option>
             {% endfor %}            
         </select>
         
-
-
-
-        <select>
-            {% for colId in all_cols %}            
-        	<option value = "columnId2">{{ colId}}</option>
+        <select name="col2">
+            {% for colId, colName in all_cols %}            
+        	<option value = "{{colId}}">{{ colName}}</option>
             {% endfor %}
         </select>
         
-
-         <li><a href="/compare?state=[FIPSCode]&col1=[columnId1]&col2=[columnId2]">Show me!</a></li>
-
+	<button>Show me!</button>
+	 </form>
+	
 </body>
 </html>
